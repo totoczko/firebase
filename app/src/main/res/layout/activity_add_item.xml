@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.martyna.chmura.AddItemActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/wpisz_nazw" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="64dp"
+        android:text="@string/wpisz_cen"
+        android:layout_below="@+id/textView"
+        />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="64dp"
+        android:layout_below="@+id/textView2"
+        android:text="@string/wpisz_ilo" />
+
+    <EditText
+        android:id="@+id/addNewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/addNewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/addNewName"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/addNewName"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:id="@+id/addNewQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/addNewPrice"
+        android:layout_marginTop="38dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/addNewPrice"
+        android:ems="10"
+        android:inputType="numberSigned" />
+
+    <Button
+        android:id="@+id/saveNewItem"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addNewQuantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:onClick="saveItemRow"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:minWidth="64dp"
+        android:background="#3F51B5"
+        android:textColor="#FFFFFF"
+        android:text="@string/zapisz" />
+
+    <Button
+        android:id="@+id/deleteItem"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addNewQuantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="128dp"
+        android:onClick="deleteItemRow"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:minWidth="64dp"
+        android:background="#3F51B5"
+        android:textColor="#FFFFFF"
+        android:text="@string/usu" />
+
+    <TextView
+        android:id="@+id/testdb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="test" />
+</RelativeLayout>
