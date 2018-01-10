@@ -2,17 +2,13 @@ package com.example.martyna.chmura;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.database.ValueEventListener;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -39,28 +35,42 @@ public class AddItemActivity extends AppCompatActivity {
         addPriceEditText = (EditText) findViewById(R.id.addNewPrice);
         addQuantityEditText = (EditText) findViewById(R.id.addNewQuantity);
 
-        test = (TextView) findViewById(R.id.testdb);
 
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference("groceries");
 
-        ValueEventListener groceryListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Grocery grocery = dataSnapshot.getValue(Grocery.class);
-                test.setText((CharSequence) grocery);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w("loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-
-        databaseRef.addValueEventListener(groceryListener);
+//        ValueEventListener groceryListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Get Post object and use the values to update the UI
+//                collectGroceries((Map<String,Object>) dataSnapshot.getValue());
+//            }
+//
+//            private void collectGroceries(Map<String,Object> groceries) {
+//
+//                ArrayList<String> names = new ArrayList<>();
+//
+//                //iterate through each user, ignoring their UID
+//                for (Map.Entry<String, Object> entry : groceries.entrySet()){
+//
+//                    //Get grocery map
+//                    Map singleGrocery = (Map) entry.getValue();
+//                    //Get name field and append to list
+//                    names.add((String) singleGrocery.get("name"));
+//                }
+//
+//                test.setText(names.toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w("loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+//        };
+//
+//        databaseRef.addValueEventListener(groceryListener);
 
     }
 
@@ -94,6 +104,10 @@ public class AddItemActivity extends AppCompatActivity {
             this.price = price;
             this.quantity = quantity;
         }
+        @Override
+        public String toString() {
+            return this.name + ": ilość: " + this.price + ", cena: " + this.quantity + "zł";
+        }
 
     }
 
@@ -107,7 +121,11 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-
+//    private void updateGrocery(String name, String price, String quantity){
+//        databaseRef.child(groceryID).child("name").setValue(name);
+//        databaseRef.child(groceryID).child("price").setValue(price);
+//        databaseRef.child(groceryID).child("quantity").setValue(quantity);
+//    }
 
 
 
