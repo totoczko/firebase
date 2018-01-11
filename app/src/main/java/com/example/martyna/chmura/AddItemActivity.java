@@ -1,5 +1,6 @@
 package com.example.martyna.chmura;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -18,13 +18,14 @@ public class AddItemActivity extends AppCompatActivity {
 
     TextView test;
 
-
-    private int groceryID;
+    private String groceryID;
     private String name;
     private String price;
     private String quantity;
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,20 @@ public class AddItemActivity extends AppCompatActivity {
         addNameEditText = (EditText) findViewById(R.id.addNewName);
         addPriceEditText = (EditText) findViewById(R.id.addNewPrice);
         addQuantityEditText = (EditText) findViewById(R.id.addNewQuantity);
+
+        Intent i = getIntent();
+        Grocery groceryObject = i.getParcelableExtra("groceryObject");
+        // getting attached intent data
+        if(groceryObject != null){
+            String intentID = groceryObject.getId();
+            if(intentID != null){
+                addNameEditText.setText(groceryObject.name);
+                addPriceEditText.setText(groceryObject.price);
+                addQuantityEditText.setText(groceryObject.quantity);
+            }
+        }
+
+
 
 
         database = FirebaseDatabase.getInstance();
@@ -77,55 +92,42 @@ public class AddItemActivity extends AppCompatActivity {
     public void saveItemRow(View v) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        int groceryID = ItemID.getID();
+//        String groceryID = String.valueOf(ItemID.getID());
         String groceryName = addNameEditText.getText().toString().trim();
         String groceryPrice = addPriceEditText.getText().toString().trim();
         String groceryQuantity = addQuantityEditText.getText().toString().trim();
 
-
-        // Write a message to the database
-        writeNewGrocery(groceryID, groceryName, groceryPrice, groceryQuantity);
-
+        Intent i = getIntent();
+        Grocery groceryObject = i.getParcelableExtra("groceryObject");
+        // getting attached intent data
+        if(groceryObject != null){
+            String intentID = groceryObject.getId();
+            if(intentID != null){
+                //updating an item
+                groceryID = intentID;
+                updateGrocery(groceryName, groceryPrice, groceryQuantity);
+            }else{
+                // creating new item
+                writeNewGrocery(groceryName, groceryPrice, groceryQuantity);
+            }
+        }
     }
 
-    @IgnoreExtraProperties
-    public static class Grocery {
+    private void writeNewGrocery(String name, String price, String quantity) {
+        //new product ID from firebase database
+        String groceryID = databaseRef.push().getKey();
 
-        public String name;
-        public String price;
-        public String quantity;
-
-        public Grocery() {
-            // Default constructor required for calls to DataSnapshot.getValue(User.class)
-        }
-
-        public Grocery(String name, String price, String quantity) {
-            this.name = name;
-            this.price = price;
-            this.quantity = quantity;
-        }
-        @Override
-        public String toString() {
-            return this.name + ": ilość: " + this.price + ", cena: " + this.quantity + "zł";
-        }
-
+        //create and save new product
+        Grocery grocery = new Grocery(groceryID, name, price, quantity);
+        databaseRef.child(groceryID).setValue(grocery);
     }
 
 
-
-    private void writeNewGrocery(int groceryID, String name, String price, String quantity) {
-        Grocery grocery = new Grocery(name, price, quantity);
-        databaseRef.push().setValue(grocery);
-
-
-
+    private void updateGrocery(String name, String price, String quantity){
+        databaseRef.child(groceryID).child("name").setValue(name);
+        databaseRef.child(groceryID).child("price").setValue(price);
+        databaseRef.child(groceryID).child("quantity").setValue(quantity);
     }
-
-//    private void updateGrocery(String name, String price, String quantity){
-//        databaseRef.child(groceryID).child("name").setValue(name);
-//        databaseRef.child(groceryID).child("price").setValue(price);
-//        databaseRef.child(groceryID).child("quantity").setValue(quantity);
-//    }
 
 
 
