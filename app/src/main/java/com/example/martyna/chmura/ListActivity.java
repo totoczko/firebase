@@ -2,7 +2,6 @@ package com.example.martyna.chmura;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends parentActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
@@ -81,6 +80,7 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
     }
 
     public void goToAddNew(View v){

@@ -2,7 +2,6 @@ package com.example.martyna.chmura;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddItemActivity extends AppCompatActivity {
+public class AddItemActivity extends parentActivity {
 
     EditText addNameEditText;
     EditText addPriceEditText;
