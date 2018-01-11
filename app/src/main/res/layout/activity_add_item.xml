@@ -90,7 +90,7 @@
         android:layout_below="@+id/addNewQuantity"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
-        android:onClick="deleteItemRow"
+        android:onClick="deleteGrocery"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:minWidth="64dp"

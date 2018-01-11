@@ -46,7 +46,7 @@ public class Grocery implements Parcelable {
 
     @Override
     public String toString() {
-        return this.getId() + " " + this.name + ": ilość: " + this.price + ", cena: " + this.quantity + "zł";
+        return this.name + ": ilość: " + this.price + ", cena: " + this.quantity + "zł";
     }
 
     public String getId() {

@@ -48,44 +48,8 @@ public class AddItemActivity extends AppCompatActivity {
             }
         }
 
-
-
-
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference("groceries");
-
-//        ValueEventListener groceryListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                collectGroceries((Map<String,Object>) dataSnapshot.getValue());
-//            }
-//
-//            private void collectGroceries(Map<String,Object> groceries) {
-//
-//                ArrayList<String> names = new ArrayList<>();
-//
-//                //iterate through each user, ignoring their UID
-//                for (Map.Entry<String, Object> entry : groceries.entrySet()){
-//
-//                    //Get grocery map
-//                    Map singleGrocery = (Map) entry.getValue();
-//                    //Get name field and append to list
-//                    names.add((String) singleGrocery.get("name"));
-//                }
-//
-//                test.setText(names.toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w("loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        };
-//
-//        databaseRef.addValueEventListener(groceryListener);
 
     }
 
@@ -106,10 +70,10 @@ public class AddItemActivity extends AppCompatActivity {
                 //updating an item
                 groceryID = intentID;
                 updateGrocery(groceryName, groceryPrice, groceryQuantity);
-            }else{
-                // creating new item
-                writeNewGrocery(groceryName, groceryPrice, groceryQuantity);
             }
+        }else{
+            // creating new item
+            writeNewGrocery(groceryName, groceryPrice, groceryQuantity);
         }
     }
 
@@ -129,7 +93,18 @@ public class AddItemActivity extends AppCompatActivity {
         databaseRef.child(groceryID).child("quantity").setValue(quantity);
     }
 
-
-
+    public void deleteGrocery(View v){
+        Intent i = getIntent();
+        Grocery groceryObject = i.getParcelableExtra("groceryObject");
+        // getting attached intent data
+        if(groceryObject != null){
+            String intentID = groceryObject.getId();
+            if(intentID != null){
+                //updating an item
+                groceryID = intentID;
+                databaseRef.child(groceryID).removeValue();
+            }
+        }
+    }
 
 }
