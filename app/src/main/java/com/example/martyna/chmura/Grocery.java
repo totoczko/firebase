@@ -65,4 +65,5 @@ public class Grocery implements Parcelable {
         dest.writeString(price);
         dest.writeString(quantity);
     }
+
 }

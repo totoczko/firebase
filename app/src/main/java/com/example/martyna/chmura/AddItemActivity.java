@@ -55,7 +55,6 @@ public class AddItemActivity extends parentActivity {
     public void saveItemRow(View v) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-//        String groceryID = String.valueOf(ItemID.getID());
         String groceryName = addNameEditText.getText().toString().trim();
         String groceryPrice = addPriceEditText.getText().toString().trim();
         String groceryQuantity = addQuantityEditText.getText().toString().trim();

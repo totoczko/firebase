@@ -50,11 +50,21 @@ public class ListActivity extends parentActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String key = dataSnapshot.getKey();
+                for (Grocery removedGrocery : groceryList) {
 
+                if (key.equals(removedGrocery.getId())) {
+                    groceryList.remove(removedGrocery);
+                    arrayAdapter.notifyDataSetChanged();
+
+                    break;
+                }
+}
             }
 
             @Override
@@ -75,13 +85,14 @@ public class ListActivity extends parentActivity {
                 Grocery currentGrocery = groceryList.get(position);
                 intent.putExtra("groceryObject", currentGrocery);
 
-
                 // Launch the {@link AddItemActivity} to display the data for the current item.
                 startActivity(intent);
             }
         });
-        
+
     }
+
+
 
     public void goToAddNew(View v){
         Intent intent_add = new Intent(this, AddItemActivity.class);
